@@ -17,3 +17,8 @@ org.eclipse.epp.logging.aeri.core.util.Logs$LogTraceException
 	at org.eclipse.epp.logging.aeri.core.util.Logs.log(Logs.java:134)
 	at org.eclipse.epp.internal.logging.aeri.ide.server.mars.ServerProblemsHistory$UpdateIndexJob.run(ServerProblemsHistory.java:319)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.core.resources 2 2 2018-04-03 23:34:17.136
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2018-04-03 23:34:17.136
+!MESSAGE The project description file (.project) for 'Segurança' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
