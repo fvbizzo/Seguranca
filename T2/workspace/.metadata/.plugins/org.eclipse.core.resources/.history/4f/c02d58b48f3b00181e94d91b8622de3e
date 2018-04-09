@@ -1,0 +1,77 @@
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Struct;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DigestCalculator {
+	
+	private class fileInfo {
+		private String hashType = null;
+		private String hash = null;
+		private String fileName = null;
+	}
+	
+	String digestListFilePath = null;
+	String digestType = null;
+	String digestMessage = null;
+	
+			
+	
+	public static void main(String[] args) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+		
+		if (args.length < 3) {
+			System.err.println("Realizar comando: java DigestCalculator Tipo_Digest Caminho_ArqListaDigest Caminho_Arq1... Caminho_ArqN");
+			System.exit(1);
+		}
+		
+		DigestCalculator calculator = new DigestCalculator();
+		calculator.setDigestType(args[0]);
+		calculator.setDigestMessage(args[0]);
+		
+		List<String> filePaths = new ArrayList<String>();
+		for (int i = 2; i < args.length; i++) {
+			filePaths.add(args[i]);
+		}
+		
+		System.out.println(filePaths);
+		
+
+	}
+
+
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+
+
+	public String getDigestType() {
+		return digestType;
+	}
+
+
+
+	public void setDigestType(String digestType) {
+		this.digestType = digestType;
+	}
+
+
+
+	public String getDigestMessage() {
+		return digestMessage;
+	}
+
+
+
+	public void setDigestMessage(String digestMessage) {
+		this.digestMessage = digestMessage;
+	}
+}
