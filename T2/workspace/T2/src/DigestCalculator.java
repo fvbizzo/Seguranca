@@ -37,17 +37,19 @@ public class DigestCalculator {
 		calculator.setDigestListFilePath(args[1]);
 
 		List<FileInfo> fileInfoList = calculator.getFileInfoList();
-
-		List<String> filePaths = new ArrayList<String>();
 		List<MessageDigest> fileDigests = new ArrayList<MessageDigest>();
+		List<String> filePaths = new ArrayList<String>();
+		List<String> status = new ArrayList<String>();
+		int numtext = 0;
 		for (int i = 2; i < args.length; i++) {
 			filePaths.add(args[i]);
 			calculator.checkFilesDigest(args[i]);
 			fileDigests.add(mDigest);
+			numtext = i-2;
 		}
 
 		System.out.println("\n\nUm dos digests calculados:\n" + byteArrayToHex(fileDigests.get(0).digest()));
-
+		status = calculator.checkDigest(fileDigests, fileInfoList, numtext);
 
 		System.out.println("\n\nLista de caminhos dos arquivos:\n" + filePaths);
 
@@ -118,6 +120,29 @@ public class DigestCalculator {
 			System.out.println("Digest hex: " + byteArrayToHex(this.mDigest.digest()));
 
 
+	}
+
+	public List<String> checkDigest(List<MessageDigest> MD, List<DigestCalculator.FileInfo> HSH, int tam ) {
+
+		List<String> status = new ArrayList<String>();
+		String buffer;
+		int flag_achou = 0;
+		int flag_colidiu = 0;
+		for(int i = 0; i < tam; i++) {
+			buffer = byteArrayToHex(MD.get(0).digest());
+			if(buffer == HSH.get(i).hashMD5) {
+				flag_achou = 1;
+			}
+			for(int j = i + 1; j <tam; j++ ) {
+				if(buffer == HSH.get(j).hashMD5) {
+					flag_colidiu = 1;
+				}
+			}
+			flag_achou = 0;
+			flag_colidiu = 0;
+		}
+
+		return status;
 	}
 
 	public String getDigestType() {
