@@ -23,7 +23,7 @@ public class DigestCalculator {
 	String digestListFilePath = null;
 	String digestType = null;
 	MessageDigest digestMessage = null;
-	MessageDigest mDigest;
+	static MessageDigest mDigest;
 
 	public static void main(String[] args) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 
@@ -39,10 +39,15 @@ public class DigestCalculator {
 		List<FileInfo> fileInfoList = calculator.getFileInfoList();
 
 		List<String> filePaths = new ArrayList<String>();
+		List<MessageDigest> fileDigests = new ArrayList<MessageDigest>();
 		for (int i = 2; i < args.length; i++) {
 			filePaths.add(args[i]);
 			calculator.checkFilesDigest(args[i]);
+			fileDigests.add(mDigest);
 		}
+
+		System.out.println("\n\nUm dos digests calculados:\n" + byteArrayToHex(fileDigests.get(0).digest()));
+
 
 		System.out.println("\n\nLista de caminhos dos arquivos:\n" + filePaths);
 
