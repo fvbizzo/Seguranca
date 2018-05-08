@@ -8,11 +8,21 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class MenuView  extends JFrame {
+import controllers.Singleton;
 
-	public MenuView(String email, String group, String name, int totalAccess) {
+public class MenuView  extends JFrame {
+	
+	Singleton singleton = new Singleton().getInstance();
+
+	public MenuView() {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 		setSize (500, 500);
+		
+		String email = singleton.getLoginName();
+		String name = singleton.getName();
+		String group = singleton.getGroup();
+		int totalAccess = singleton.getTotalAccess();
+		
 		
 		JLabel emailLabel = new JLabel(String.format("Email: %s", email));
 		JLabel groupLabel = new JLabel(String.format("Grupo: %s", group));
@@ -28,22 +38,22 @@ public class MenuView  extends JFrame {
 		
 		registerButton.addActionListener(new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
-				System.out.println("Cadastrar novo usuário");
+				register();
 			}
 		});
 		alterButton.addActionListener(new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
-				System.out.println("Alterar senha pessoal e certificado digital do usuário");
+				alter();
 			}
 		});
 		consultButton.addActionListener(new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
-				System.out.println("Consultar pasta de arquivos secretos");
+				consult();
 			}
 		});
 		exitButton.addActionListener(new ActionListener () {
 			public void actionPerformed (ActionEvent e) {
-				System.out.println("Sair do Sistema");
+				exit();
 			}
 		});
 		
@@ -66,6 +76,22 @@ public class MenuView  extends JFrame {
 		setVisible(true);
 		setTitle("Menu");
 				
+	}
+	
+	private void register() {
+		System.out.println("Cadastrar novo usuário");
+	}
+	private void alter() {
+		System.out.println("Alterar senha pessoal e certificado digital do usuário");
+	}
+	private void consult() {
+		System.out.println("Consultar pasta de arquivos secretos");
+	}
+	private void exit() {
+		System.out.println("Sair do Sistema");
+		new ExitView();
+		dispose();
+		setVisible(false);
 	}
 	
 }

@@ -10,6 +10,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import controllers.Singleton;
+
 public class PasswordView extends JFrame {
 	
 	private ArrayList<String> buttonNames = new ArrayList<String>(Arrays.asList("BA","CA","DA","FA","GA","BE","CE","DE","FE","GE","BO","CO","DO","FO","GO"));
@@ -86,7 +88,11 @@ public class PasswordView extends JFrame {
 		if (count == 3) {
 			generatePossiblePasswords();
 			count = 0;
-			new MenuView("abc@123.com", "usuario", "joao", 3);
+			Singleton singleton = new Singleton().getInstance();
+			singleton.setGroup("admin");
+			singleton.setLoginName("esse@login.name");
+			singleton.setName("noome");
+			new MenuView();
 			this.dispose();
 			this.setVisible(false);
 			
