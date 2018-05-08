@@ -1,3 +1,4 @@
+package views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,10 +31,6 @@ public class PasswordView extends JFrame {
 	public PasswordView() {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setSize (250, 300);
-		setDefaultCloseOperation (EXIT_ON_CLOSE);
-		setResizable(false);
-		setVisible(true);
-		setTitle("Password");
 		
 		int x = (int) (500);
 		int y = (int) (500);
@@ -61,6 +58,11 @@ public class PasswordView extends JFrame {
 		b3.addActionListener(action);
 		b4.addActionListener(action);
 		b5.addActionListener(action);
+		
+		setDefaultCloseOperation (EXIT_ON_CLOSE);
+		setResizable(false);
+		setVisible(true);
+		setTitle("Password");
 	
 		
 	}
@@ -84,6 +86,10 @@ public class PasswordView extends JFrame {
 		if (count == 3) {
 			generatePossiblePasswords();
 			count = 0;
+			new MenuView("abc@123.com", "usuario", "joao", 3);
+			this.dispose();
+			this.setVisible(false);
+			
 		}
 	}
 	
