@@ -80,6 +80,9 @@ public class MenuView  extends JFrame {
 	
 	private void register() {
 		System.out.println("Cadastrar novo usuário");
+		new RegisterView();
+		dispose();
+		setVisible(false);
 	}
 	private void alter() {
 		System.out.println("Alterar senha pessoal e certificado digital do usuário");

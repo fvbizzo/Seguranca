@@ -7,6 +7,7 @@ public class Singleton {
 	private String group;
 	private String name;
 	private int totalAccess = 4;
+	private int totalUsers = 3;
 	
 	public static Singleton getInstance() {
 		if(singleton == null) {
@@ -45,6 +46,14 @@ public class Singleton {
 
 	public void setTotalAccess(int totalAccess) {
 		this.totalAccess = totalAccess;
+	}
+
+	public int getTotalUsers() {
+		return totalUsers;
+	}
+
+	public void setTotalUsers(int totalUsers) {
+		this.totalUsers = totalUsers;
 	}
 	
 	
