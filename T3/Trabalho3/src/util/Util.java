@@ -1,3 +1,4 @@
+package util;
 
 public class Util {
 	public static String toHex(byte[] bytes) {
