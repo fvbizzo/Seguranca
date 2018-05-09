@@ -49,7 +49,7 @@ public class autentic{
 			cipher.init(Cipher.DECRYPT_MODE, chaveSecreta);
 			byte[] index = cipher.doFinal(arqEnc);
 			
-			X509Certificate cert = Auth.leCertificadoDigital(((String) user.get("certificado")).getBytes());
+			X509Certificate cert = autentic.leCertificadoDigital(((String) user.get("certificado")).getBytes());
 			Signature assinatura = Signature.getInstance("MD5withRSA");
 			assinatura.initVerify(cert.getPublicKey());
 			assinatura.update(index);
@@ -138,7 +138,7 @@ public class autentic{
     }
 
     public static boolean cadastraUsuario(String grupo, String senha, String pathCert, String pathTanList) {
-		if (Auth.verificaRegrasSenha(senha) == false)
+		if (autentic.verificaRegrasSenha(senha) == false)
 			return false;
 		
 		Path cdPath = Paths.get(pathCert);
@@ -160,12 +160,12 @@ public class autentic{
 		end = subjectDN.indexOf(",", start);
 		String nome = subjectDN.substring(start + 1, end);
 		
-		String salt = Auth.geraSalt();
-		String senhaProcessada = Auth.geraSenhaProcessada(senha, salt);    
+		String salt = autentic.geraSalt();
+		String senhaProcessada = autentic.geraSenhaProcessada(senha, salt);    
 		
 		boolean ret = DBManager.addUser(nome, email, grupo, salt, senhaProcessada, certToString(cert));
 		if (ret) {
-			List<String> list = Auth.geraTanList(pathTanList, 10,  email);
+			List<String> list = autentic.geraTanList(pathTanList, 10,  email);
 			if (list == null) {
 				DBManager.insereRegistro(6005, email);
 				return false;
@@ -187,7 +187,7 @@ public class autentic{
 	}
 	
 	public static boolean autenticaSenha(String senha, HashMap user)  {
-		String senhaDigest = Auth.geraSenhaProcessada(senha, (String) user.get("salt"));
+		String senhaDigest = autentic.geraSenhaProcessada(senha, (String) user.get("salt"));
 		if (user.get("passwordDigest").equals(senhaDigest))
 			return true;
 		return false;
@@ -197,7 +197,7 @@ public class autentic{
 		try {
 			List<String> list = new ArrayList<String>();
 			for (int i = 0; i < num; i++) {
-				String tan = Auth.geraTan();
+				String tan = autentic.geraTan();
 				list.add(Integer.toString(i) +" "+ tan);
 				DBManager.insereTan(tan, email, i);
 			}
@@ -272,7 +272,7 @@ public class autentic{
     public static boolean verificaArvoreSenha(Node root, HashMap user, String senhaFormada) {
 		if (root.dir == null && root.esq == null) {
 //			System.out.println(senhaFormada);
-			return Auth.autenticaSenha(senhaFormada, user);
+			return autentic.autenticaSenha(senhaFormada, user);
 		}
 		boolean ret1 = verificaArvoreSenha(root.esq, user, senhaFormada + root.esq.opcao);
 		boolean ret2 = verificaArvoreSenha(root.dir, user, senhaFormada + root.dir.opcao);
@@ -292,7 +292,7 @@ public class autentic{
 					String grupo = params[3];
 					if (user.get("email").equals(email) || user.get("groupName").equals(grupo)) {
 						String nomeCodigoArquivo = params[0];
-						byte[] conteudoArquivo = Auth.decriptaArquivo(user, pastaArquivos, nomeCodigoArquivo, chavePrivada);
+						byte[] conteudoArquivo = autentic.decriptaArquivo(user, pastaArquivos, nomeCodigoArquivo, chavePrivada);
 						Files.write(Paths.get(pastaArquivos + "/" + nomeSecreto), conteudoArquivo);
 						return true;
 					}
@@ -317,7 +317,7 @@ public class autentic{
 			assinatura.update(teste);
 			byte[] resp = assinatura.sign();
 			
-			PublicKey chavePublica = Auth.leCertificadoDigital(((String) user.get("certificado")).getBytes()).getPublicKey();
+			PublicKey chavePublica = autentic.leCertificadoDigital(((String) user.get("certificado")).getBytes()).getPublicKey();
 			assinatura.initVerify(chavePublica);
 			assinatura.update(teste);
 			
