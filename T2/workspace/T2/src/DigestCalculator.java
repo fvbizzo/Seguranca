@@ -26,10 +26,10 @@ public class DigestCalculator {
 	}
 
 	List<FileInfo> fileInfoList = new ArrayList<FileInfo>();
-	
+
 	String digestListFilePath = null; //Arquivo contendo Caminho_ArqListaDigest
 	String digestType = null; // MD5 ou SHA1
-	MessageDigest mDigest; 
+	MessageDigest mDigest;
 
 	public static void main(String[] args) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 
@@ -46,7 +46,7 @@ public class DigestCalculator {
 		List<String> fileDigests = new ArrayList<String>();
 		List<String> filePaths = new ArrayList<String>();
 		List<String> status = new ArrayList<String>();
-				
+
 		for (int i = 2; i < args.length; i++) {
 			filePaths.add(args[i]);
 			fileDigests.add(calculator.checkFilesDigest(args[i]));
@@ -72,9 +72,9 @@ public class DigestCalculator {
             	String[] lineInfo = readLine.split(" ");
     			FileInfo info = new FileInfo();
     			info.fileName = lineInfo[0];
-    			
+
     			System.out.print(lineInfo.length);
-    			
+
     			if (lineInfo[1].equals("MD5")) info.hashMD5 = lineInfo[2];
     			else if (lineInfo[1].equals("SHA1")) info.hashSHA1 = lineInfo[2];
 
@@ -127,7 +127,7 @@ public class DigestCalculator {
 	}
 
 	/**
-	 * Dado um conjunto de listas com Caminho dos arquivos, o valor apos o update compara com o valor esperado na lista 
+	 * Dado um conjunto de listas com Caminho dos arquivos, o valor apos o update compara com o valor esperado na lista
 	 * Decide para cada valor se ele esta OK NAO_OK COLISION ou NOT_FOUND
 	 * @param FP - lista de caminhos dos arquivos
 	 * @param MD - lista de valores apos o update
@@ -169,9 +169,9 @@ public class DigestCalculator {
 					}
 				}
 			}
-						
+
 			for(int j = 0; j < HSH.size(); j++ ) {
-				
+
 				if(this.digestType.equals( "MD5" )) {
 					if(buffer.equals( HSH.get(j).hashMD5 ) && !name.equals( HSH.get(j).fileName )) {
 						flag_colidiu = 1;
@@ -183,12 +183,12 @@ public class DigestCalculator {
 					}
 				}
 			}
-			for(int j = 0; j < HSH.size(); j++ ) {
+			for(int j = 0; j < MD.size(); j++ ) {
 				if(buffer.equals( MD.get(j)) && !name.equals( FP.get(j) )) {
 					flag_colidiu = 1;
 				}
 			}
-			
+
 			if ( flag_colidiu == 1 ) {
 				status.add("COLISION");
 			} else if ( flag_achou == 0 ) {
@@ -198,14 +198,14 @@ public class DigestCalculator {
 			} else {
 				status.add("OK");
 			}
-			
+
 			flag_ok = 0;
 			flag_achou = 0;
 			flag_colidiu = 0;
 		}
 		return status;
 	}
-	
+
 	/**
 	 * Imprime os status calculados pela funcao checkDigest
 	 * @param FP - lista de caminhos dos arquivos
@@ -219,7 +219,7 @@ public class DigestCalculator {
 		}
 		System.out.println("-------------------\n\n");
 	}
-	
+
 	/**
 	 * Edita o arquivo original adicionando o que faltava
 	 * @param FP - lista de caminhos dos arquivos
@@ -234,22 +234,22 @@ public class DigestCalculator {
 			File f = new File(filePath);
 		    BufferedReader b = new BufferedReader(new FileReader(f));
 		    String readLine = "";
-		   
+
 		    while ((readLine = b.readLine()) != null) {
 		    	String line = readLine;
 		    	String[] lineInfo = readLine.split(" ");
 		    	String name = lineInfo[0];
-				
+
 		    	if(FP.contains(name)){
 		    		int index = FP.indexOf(name);
 		    		if(status.get(index).equals("NOT_FOUND")){
 		    			line = line + " " + this.digestType + " " + MD.get(index);
 		    		}
 		    	}
-			   			   
+
 		    	lines.add(line);
 		    	names.add(name);
-		
+
 		   }
         } catch (IOException e) {
             e.printStackTrace();
@@ -260,7 +260,7 @@ public class DigestCalculator {
 		    	writer.write(line + "\n");
 		    	System.out.println(line);
 		    }
-		    
+
 		    for (String name: FP) {
 		    	if (!names.contains(name)){
 		    		int index = FP.indexOf(name);
@@ -271,12 +271,12 @@ public class DigestCalculator {
 		    		}
 		    	}
 		    }
-		    
+
 		    writer.close();
 		} catch (IOException e) {
             e.printStackTrace();
         }
-		
+
 
 	}
 
@@ -294,7 +294,7 @@ public class DigestCalculator {
 	public void setFileInfoList(List<FileInfo> fileInfoList) {
 		this.fileInfoList = fileInfoList;
 	}
-	
+
 	/**
 	 * Realiza a conversão de uma array de bytes para uma string
 	 * @param a array de bytes a ser convertido byte[]
