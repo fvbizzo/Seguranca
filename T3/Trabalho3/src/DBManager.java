@@ -22,7 +22,7 @@ public class DBManager {
 	public static Connection connect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			return DriverManager.getConnection("jdbc:sqlite:db.sqlite");
+			return DriverManager.getConnection("jdbc:sqlite:database.db");
 		}
 		catch (ClassNotFoundException | SQLException e) {
 			System.err.println(e.getMessage());
@@ -149,7 +149,7 @@ public class DBManager {
 		closeConn(conn);
 	}
 	
-	private static List<HashMap<String,Object>> selectFromDb(String query) {
+	public static List<HashMap<String,Object>> selectFromDb(String query) {
 		Connection conn = connect();
 		try {
 			Statement stat = conn.createStatement();

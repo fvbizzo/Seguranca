@@ -15,8 +15,7 @@ CREATE TABLE User (
   totalAcessos INTEGER DEFAULT 0,
   totalConsultas INTEGER DEFAULT 0,
   certificado TEXT NOT NULL,
-  numChavePrivadaErrada INTEGER DEFAULT 0,
-  numTanErrada INTEGER DEFAULT 0
+  numChavePrivadaErrada INTEGER DEFAULT 0
 );
 
 CREATE TABLE Registro (
