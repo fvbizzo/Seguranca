@@ -65,9 +65,8 @@ public class LoginView extends JFrame {
 				}
 				else {
 					Integer acessosNegados = ((Integer) user.get("numAcessoErrados"));
-					Integer tanNegados = ((Integer) user.get("numTanErrada"));
 					System.out.println(acessosNegados);
-					if (acessosNegados >= 3 || tanNegados >= 3) {	
+					if (acessosNegados >= 3) {	
 						String ultimaTentativa = (String) user.get("ultimaTentativa");
 						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						
