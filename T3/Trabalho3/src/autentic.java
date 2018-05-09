@@ -269,16 +269,16 @@ public class autentic{
 		return (!crescente) && (!decrescente);
     }
 
-    public static boolean verificaArvoreSenha(Node root, HashMap user, String senhaFormada) {
-		if (root.dir == null && root.esq == null) {
-//			System.out.println(senhaFormada);
-			return autentic.autenticaSenha(senhaFormada, user);
-		}
-		boolean ret1 = verificaArvoreSenha(root.esq, user, senhaFormada + root.esq.opcao);
-		boolean ret2 = verificaArvoreSenha(root.dir, user, senhaFormada + root.dir.opcao);
-		
-		return ret1 || ret2;
-    }
+//    public static boolean verificaArvoreSenha(Node root, HashMap user, String senhaFormada) {
+//		if (root.dir == null && root.esq == null) {
+////			System.out.println(senhaFormada);
+//			return autentic.autenticaSenha(senhaFormada, user);
+//		}
+//		boolean ret1 = verificaArvoreSenha(root.esq, user, senhaFormada + root.esq.opcao);
+//		boolean ret2 = verificaArvoreSenha(root.dir, user, senhaFormada + root.dir.opcao);
+//		
+//		return ret1 || ret2;
+//    }
 
     public static boolean acessarArquivo(HashMap user, String index, String nomeArquivo, PrivateKey chavePrivada, String pastaArquivos) {
 		try {

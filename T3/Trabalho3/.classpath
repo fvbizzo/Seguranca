@@ -2,5 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="/nethome/home/ecp/e1211874/INF1416/Seguranca/T3/Trabalho3/sqlite-jdbc-3.6.20.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
