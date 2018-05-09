@@ -4,14 +4,17 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Principal;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -41,7 +44,7 @@ public class RegisterView extends JFrame {
 
 	public RegisterView() {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
-		setSize (1024, 860);
+		setSize (1000, 650);
 		
 		String email = singleton.getLoginName();
 		String name = singleton.getName();
@@ -58,6 +61,8 @@ public class RegisterView extends JFrame {
 		JLabel mainMenu = new JLabel("Formulario de cadastro:");
 		
 		JFileChooser certificateFileChooser = new JFileChooser();
+		certificateFileChooser.setPreferredSize(new Dimension (300,100));
+
 		certificateFileChooser.setControlButtonsAreShown(false);
 		
 		JComboBox userGroups = new JComboBox(groups);
@@ -85,9 +90,14 @@ public class RegisterView extends JFrame {
 			}
 		});
 		
+		JPanel senhaPanel = new JPanel(new GridLayout(1, 2, 0, 0));
 		JLabel senhaLabel = new JLabel("Senha:"); 
 		JPasswordField senha = new JPasswordField();
-		JPanel senhaButtons = new JPanel(new FlowLayout());
+		senha.setPreferredSize(new Dimension(200, 30));
+		senha.setMaximumSize(new Dimension(200, 30));
+		senhaPanel.add(senhaLabel);
+		senhaPanel.add(senha);
+		JPanel senhaButtons = new JPanel(new GridLayout(1, 16, 0, 0));
 		for (String str: fonetics) {
 			JButton fonema = new JButton(str);
 			senhaButtons.add(fonema);
@@ -117,11 +127,17 @@ public class RegisterView extends JFrame {
 			}
 		});
 		
+		JPanel confirmaPanel = new JPanel(new GridLayout(1, 2, 0, 0));
 		JLabel confirmaLabel = new JLabel("Confirmar Senha:"); 
 		JPasswordField confirma = new JPasswordField();
-		JPanel confirmaButtons = new JPanel(new FlowLayout());
+		confirma.setPreferredSize(new Dimension(200,30));
+		confirma.setMaximumSize(new Dimension(200,30));
+		confirmaPanel.add(confirmaLabel);
+		confirmaPanel.add(confirma);
+		JPanel confirmaButtons = new JPanel(new GridLayout(1, 16, 0, 0));
 		for (String str: fonetics) {
 			JButton fonema = new JButton(str);
+			fonema.setSize(new Dimension(15,15));
 			confirmaButtons.add(fonema);
 			teclasConfirma.add(fonema);
 			fonema.addActionListener(new ActionListener() {
@@ -163,12 +179,10 @@ public class RegisterView extends JFrame {
 		getContentPane().add(certificateFileChooser);
 		getContentPane().add(userGroups);
 		
-		getContentPane().add(senhaLabel);
-		getContentPane().add(senha);
+		getContentPane().add(senhaPanel);
 		getContentPane().add(senhaButtons);
 		
-		getContentPane().add(confirmaLabel);
-		getContentPane().add(confirma);
+		getContentPane().add(confirmaPanel);
 		getContentPane().add(confirmaButtons);
 		
 		getContentPane().add(registerButton);
@@ -207,7 +221,8 @@ public class RegisterView extends JFrame {
 					JOptionPane.showMessageDialog(null, "Certificado digital inválido.");
 					return;
 				}
-				String infoString = cert.getVersion() +"\n"+ cert.getNotBefore() +"\n"+ cert.getType() +"\n"+ cert.getIssuerDN() +"\n"+ cert.getSubjectDN();
+				Principal subjectDN = cert.getSubjectDN();
+				String infoString = "Versão: "+ cert.getVersion() +"\n"+ "Validade: " +cert.getNotBefore() +"\n"+ "Tipo: "+cert.getType() +"\n"+ "Assinatura Emissor: "+cert.getIssuerDN() +"\n"+ "Sujeito: "+cert.getSubjectDN()+"\n"+ "Email: "+cert.getSubjectDN();
 				int ret = JOptionPane.showConfirmDialog(null, infoString);
 				
 				if (ret != JOptionPane.YES_OPTION) {

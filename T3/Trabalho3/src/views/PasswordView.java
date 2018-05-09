@@ -5,12 +5,15 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import controllers.Singleton;
+import util.Autentic;
 import util.DBManager;
 
 public class PasswordView extends JFrame {
@@ -29,14 +32,17 @@ public class PasswordView extends JFrame {
 	
 	private ArrayList<String> possiblePasswords = new ArrayList<String>();
 	
+	HashMap user;
+	
+	String senha;
 	
 	
-	public PasswordView() {
+	public PasswordView(HashMap user) {
+		
+		this.user = user;
+		
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setSize (250, 300);
-		
-		int x = (int) (500);
-		int y = (int) (500);
 		
 		getContentPane().add(b1);
 		getContentPane().add(b2);
@@ -88,15 +94,8 @@ public class PasswordView extends JFrame {
 		clicks.add(value);
 		if (count == 3) {
 			generatePossiblePasswords();
-			count = 0;
-			Singleton singleton = new Singleton().getInstance();
-			singleton.setGroup("Administrador");
-			singleton.setLoginName("esse@login.name");
-			singleton.setName("noome");
-			new MenuView();
-			this.dispose();
-			this.setVisible(false);
-			
+			tryPass();
+			count = 0;			
 		}
 	}
 	
@@ -115,6 +114,43 @@ public class PasswordView extends JFrame {
 		//Do something with the generated passwords, check if its right...
 		System.out.println(possiblePasswords);
 		
+	}
+	
+	private void tryPass() {
+		HashMap updatedUser = Autentic.autenticaEmail((String) user.get("email"));
+		Integer acessosNegados = ((Integer) updatedUser.get("numAcessoErrados"));
+		if (acessosNegados >= 3) {		
+			DBManager.insereRegistro(3007, (String) updatedUser.get("email"));
+			JOptionPane.showMessageDialog(null, "Senha incorreta. Número total de erros atingido. Aguarde até 2 minutos para tentar novamente.");
+			dispose();
+			new LoginView();
+		}
+		
+		if (Autentic.verificaVetorSenha(updatedUser, possiblePasswords.toArray(new String[possiblePasswords.size()])) ) {
+			DBManager.insereRegistro(3003, (String) updatedUser.get("email"));
+			DBManager.insereRegistro(3002, (String) updatedUser.get("email"));
+			DBManager.zeraAcessoErrado((String)updatedUser.get("email"));
+			dispose();
+			new MenuView();
+		}
+		else {
+			DBManager.incrementaAcessoErrado((String)updatedUser.get("email"));
+			updatedUser = Autentic.autenticaEmail((String) updatedUser.get("email"));
+			acessosNegados = ((Integer) updatedUser.get("numAcessoErrados"));
+			
+			if (acessosNegados == 1) {
+				DBManager.insereRegistro(3004, (String) updatedUser.get("email"));
+			}
+			else if (acessosNegados == 2) {
+				DBManager.insereRegistro(3005, (String) updatedUser.get("email"));
+			}
+			else if (acessosNegados == 3) {		
+				DBManager.insereRegistro(3006, (String) updatedUser.get("email"));
+			}
+			
+			JOptionPane.showMessageDialog(null, "Senha incorreta");
+			
+		}
 	}
 
 }

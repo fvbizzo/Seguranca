@@ -187,33 +187,6 @@ public class Autentic{
 			return true;
 		return false;
     }
-
-    public static List<String> geraTanList(String path, int num, String email) {
-		try {
-			List<String> list = new ArrayList<String>();
-			for (int i = 0; i < num; i++) {
-				String tan = Autentic.geraTan();
-				list.add(Integer.toString(i) +" "+ tan);
-				//DBManager.insereTan(tan, email, i);
-			}
-			Files.write(Paths.get(path + "/tanList.txt"), String.join("\n", list).getBytes());
-			return list;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	private static String geraTan() {
-		String candidateChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-		StringBuilder sb = new StringBuilder();
-	    Random rand = new Random();
-	    for (int i = 0; i < 5; i++) {
-	        sb.append(candidateChars.charAt(rand.nextInt(candidateChars
-	                .length())));
-	    }
-		return sb.toString();
-	}
 	
 	public static String geraSenhaProcessada(String senha, String salt) {
 		MessageDigest sha1 = null;
@@ -245,16 +218,15 @@ public class Autentic{
 		return true;
     }
 
-//    public static boolean verificaArvoreSenha(Node root, HashMap user, String senhaFormada) {
-//		if (root.dir == null && root.esq == null) {
-////			System.out.println(senhaFormada);
-//			return autentic.autenticaSenha(senhaFormada, user);
-//		}
-//		boolean ret1 = verificaArvoreSenha(root.esq, user, senhaFormada + root.esq.opcao);
-//		boolean ret2 = verificaArvoreSenha(root.dir, user, senhaFormada + root.dir.opcao);
-//		
-//		return ret1 || ret2;
-//    }
+    public static boolean verificaVetorSenha(HashMap user, String[] senhas) {
+    	for (String senha: senhas) {
+    		if (Autentic.autenticaSenha(senha, user) ) {
+    			return true;
+    		}
+    	}
+    	return false;
+
+    }
 
     public static boolean acessarArquivo(HashMap user, String index, String nomeArquivo, PrivateKey chavePrivada, String pastaArquivos) {
 		try {

@@ -3,9 +3,9 @@ package controllers;
 public class Singleton {
 	private static Singleton singleton = null;
 	
-	private String loginName;
-	private String group;
-	private String name;
+	private String loginName = "as";
+	private String group = "aa";
+	private String name = "bb";
 	private int totalAccess = 4;
 	private int totalUsers = 3;
 	
