@@ -50,59 +50,66 @@ public class LoginView extends JFrame {
 		loginField.setSize(200, 40);
 		
 		
-		
-		
 		loginButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				clicked();
 				
-				
-				HashMap user = Autentic.autenticaEmail(loginField.getText());
-				if (user == null) {
-					DBManager.insereRegistro(2005, loginField.getText());
-					JOptionPane.showMessageDialog(null, "Usuário não identificado.");
-				}
-				else {
-					Integer acessosNegados = ((Integer) user.get("numAcessoErrados"));
-					System.out.println(acessosNegados);
-					if (acessosNegados >= 3) {	
-						String ultimaTentativa = (String) user.get("ultimaTentativa");
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						
-						Date horario = null;
-						try {
-							horario = formatter.parse(ultimaTentativa);
-						} catch (ParseException e1) {
-							e1.printStackTrace();
-							System.exit(1);
-						}
-						
-						Calendar cal = Calendar.getInstance();
-						cal.setTime(new Date());
-						cal.add(Calendar.MINUTE, -2);
-						cal.add(Calendar.HOUR, 2);// fuso horario
-						System.out.println(horario);
-						System.out.println(cal.getTime());
-						if (horario.before(cal.getTime())) {
-							DBManager.zeraAcessoErrado((String) user.get("email"));
-							user = Autentic.autenticaEmail((String) user.get("email"));
-						}
-						else {
-							DBManager.insereRegistro(2004, (String) user.get("email"));
-							JOptionPane.showMessageDialog(null, "Usuário com acesso bloquado.");
-						}
-					}
-					else {
-						DBManager.insereRegistro(2003, (String) user.get("email"));
-						DBManager.insereRegistro(2002);
-						dispose();
-						new PasswordView();
-					}
-				}
 			}
-			
 		});
+		
+//		loginButton.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				
+//				HashMap user = Autentic.autenticaEmail(loginField.getText());
+//				if (user == null) {
+//					DBManager.insereRegistro(2005, loginField.getText());
+//					JOptionPane.showMessageDialog(null, "Usuário não identificado.");
+//				}
+//				else {
+//					Integer acessosNegados = ((Integer) user.get("numAcessoErrados"));
+//					System.out.println(acessosNegados);
+//					if (acessosNegados >= 3) {	
+//						String ultimaTentativa = (String) user.get("ultimaTentativa");
+//						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//						
+//						Date horario = null;
+//						try {
+//							horario = formatter.parse(ultimaTentativa);
+//						} catch (ParseException e1) {
+//							e1.printStackTrace();
+//							System.exit(1);
+//						}
+//						
+//						Calendar cal = Calendar.getInstance();
+//						cal.setTime(new Date());
+//						cal.add(Calendar.MINUTE, -2);
+//						cal.add(Calendar.HOUR, 2);// fuso horario
+//						System.out.println(horario);
+//						System.out.println(cal.getTime());
+//						if (horario.before(cal.getTime())) {
+//							DBManager.zeraAcessoErrado((String) user.get("email"));
+//							user = Autentic.autenticaEmail((String) user.get("email"));
+//						}
+//						else {
+//							DBManager.insereRegistro(2004, (String) user.get("email"));
+//							JOptionPane.showMessageDialog(null, "Usuário com acesso bloquado.");
+//						}
+//					}
+//					else {
+//						DBManager.insereRegistro(2003, (String) user.get("email"));
+//						DBManager.insereRegistro(2002);
+//						dispose();
+//						new PasswordView();
+//					}
+//				}
+//			}
+//			
+//		});
 		
 		setDefaultCloseOperation (EXIT_ON_CLOSE);
 		setResizable(false);

@@ -75,7 +75,7 @@ public class DBManager {
 		updateDb(String.format("UPDATE User SET numAcessoErrados = numAcessoErrados + 1, ultimaTentativa = datetime('now') WHERE email = '%s'", email));
 	}
 	
-	public static void zeraTanoErrado(String email) {
+	public static void zeraAcessoErrado(String email) {
 		updateDb(String.format("UPDATE User SET numAcessoErrados = 0 WHERE email = '%s'", email));
 	}
 	

@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import controllers.Singleton;
+import util.DBManager;
 
 public class PasswordView extends JFrame {
 	
@@ -89,7 +90,7 @@ public class PasswordView extends JFrame {
 			generatePossiblePasswords();
 			count = 0;
 			Singleton singleton = new Singleton().getInstance();
-			singleton.setGroup("admin");
+			singleton.setGroup("Administrador");
 			singleton.setLoginName("esse@login.name");
 			singleton.setName("noome");
 			new MenuView();
@@ -115,4 +116,5 @@ public class PasswordView extends JFrame {
 		System.out.println(possiblePasswords);
 		
 	}
+
 }

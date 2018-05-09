@@ -138,7 +138,7 @@ public class Autentic{
 	    return sw.toString();
     }
 
-    public static boolean cadastraUsuario(String grupo, String senha, String pathCert, String pathTanList) {
+    public static boolean cadastraUsuario(String grupo, String senha, String pathCert) {
 		if (Autentic.verificaRegrasSenha(senha) == false)
 			return false;
 		
@@ -165,13 +165,7 @@ public class Autentic{
 		String senhaProcessada = Autentic.geraSenhaProcessada(senha, salt);    
 		
 		boolean ret = DBManager.addUser(nome, email, grupo, salt, senhaProcessada, certToString(cert));
-		if (ret) {
-			List<String> list = Autentic.geraTanList(pathTanList, 10,  email);
-			if (list == null) {
-				DBManager.insereRegistro(6005, email);
-				return false;
-			}
-		}
+		
 		return ret;
     }
 
@@ -244,30 +238,11 @@ public class Autentic{
 	
 	public static boolean verificaRegrasSenha(String senha) {
 		int len = senha.length();
-		if (len < 6 || len > 8)
+		if (len != 6 )
 			return false;
 		
-		for (int i = 0; i < len; ++i) {
-	        if (!Character.isDigit(senha.charAt(i))) {
-	            return false;
-	        }
-	    }
-		
-		boolean crescente = true;
-		boolean decrescente = true;
-		
-		for (int i = 0; i < len - 1; i++) {
-			char c = senha.charAt(i);
-			char cProx = senha.charAt(i+1);
-			
-			if (Character.getNumericValue(cProx) != Character.getNumericValue(c) + 1)
-				crescente = false;
-			if (Character.getNumericValue(cProx) != Character.getNumericValue(c) - 1)
-				decrescente = false;
-			if (cProx == c )
-				return false;	
-		}
-		return (!crescente) && (!decrescente);
+		//TODO: VERIFICA SILABAS IGUAIS
+		return true;
     }
 
 //    public static boolean verificaArvoreSenha(Node root, HashMap user, String senhaFormada) {

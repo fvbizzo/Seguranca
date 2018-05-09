@@ -7,6 +7,10 @@ import java.awt.FlowLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -15,11 +19,14 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controllers.Singleton;
+import util.Autentic;
+import util.DBManager;
 
 public class RegisterView extends JFrame {
 	
@@ -166,6 +173,73 @@ public class RegisterView extends JFrame {
 		
 		getContentPane().add(registerButton);
 		getContentPane().add(backButton);
+		
+		registerButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO: mudar aqui depois o user
+				DBManager.insereRegistro(6002, (String) "jjj"/*user.get("email")*/);
+				
+				String resultSenha = new String( senha.getPassword() );
+				String resultConfirmacao = new String(confirma.getPassword());
+				String grupo = (String) userGroups.getSelectedItem().toString().toLowerCase();
+				
+				Path cdPath;
+				try {
+					cdPath = Paths.get(certificateFileChooser.getSelectedFile().getPath());
+				} catch (Exception ey) {
+					JOptionPane.showMessageDialog(null, "Certificado digital não selecionado.");
+					return;
+				}
+				byte[] certDigBytes = null;
+				try {
+					certDigBytes = Files.readAllBytes(cdPath);
+				} catch (Exception a) {
+					a.printStackTrace();
+					DBManager.insereRegistro(6004, (String) "jjj"/*user.get("email")*/);
+					return;
+				}
+				
+				X509Certificate cert = Autentic.leCertificadoDigital(certDigBytes);
+				if (cert == null) {
+					DBManager.insereRegistro(6004, (String) "jjj"/*user.get("email")*/);
+					JOptionPane.showMessageDialog(null, "Certificado digital inválido.");
+					return;
+				}
+				String infoString = cert.getVersion() +"\n"+ cert.getNotBefore() +"\n"+ cert.getType() +"\n"+ cert.getIssuerDN() +"\n"+ cert.getSubjectDN();
+				int ret = JOptionPane.showConfirmDialog(null, infoString);
+				
+				if (ret != JOptionPane.YES_OPTION) {
+					System.out.println("Cancelou");
+					DBManager.insereRegistro(6007, (String) "jjj"/*user.get("email")*/);
+					return;
+				}
+				else {
+					DBManager.insereRegistro(6006, (String) "jjj"/*user.get("email")*/);
+				}
+			
+				
+				if (resultSenha.equals(resultConfirmacao)) {
+					//TODO: PORBLEMA AQUI NAO TA CADASTRANDO
+					if (Autentic.cadastraUsuario(grupo, resultSenha, cdPath.toString())) {
+						JOptionPane.showMessageDialog(null, "Usuário cadastrado!");
+						dispose();
+						setVisible(false);
+						new RegisterView();
+					}
+					else {
+						DBManager.insereRegistro(6003, (String) "jjj"/*user.get("email")*/);
+						JOptionPane.showMessageDialog(null, "Não foi possível cadastrar novo usuário.");
+					}
+				}
+				else {
+					DBManager.insereRegistro(6003, (String) "jjj"/*user.get("email")*/);
+					JOptionPane.showMessageDialog(null, "Senha e confirmação de senha não são iguais.");
+				}
+				
+			}
+		});
 		
 	
 		
