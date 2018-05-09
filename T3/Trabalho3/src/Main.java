@@ -13,10 +13,6 @@ import views.LoginView;
 public class Main {
 	public static void main (String[] args) throws ClassNotFoundException {
 		
-		DBManager db = new DBManager();
-		List<HashMap<String,Object>> obj = db.selectFromDb("SELECT * from Mensagem");
-		System.out.println(obj);
-		
 
 		new LoginView();		
 	}

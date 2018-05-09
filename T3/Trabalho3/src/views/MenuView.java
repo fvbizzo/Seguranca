@@ -64,7 +64,7 @@ public class MenuView  extends JFrame {
 		getContentPane().add(totalAccessLabel);
 		
 		getContentPane().add(mainMenu);
-		if(group == "admin") {
+		if(group.equals("Administrador")) {
 			getContentPane().add(registerButton);
 		}
 		getContentPane().add(alterButton);

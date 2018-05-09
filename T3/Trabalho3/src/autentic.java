@@ -199,7 +199,7 @@ public class autentic{
 			for (int i = 0; i < num; i++) {
 				String tan = autentic.geraTan();
 				list.add(Integer.toString(i) +" "+ tan);
-				DBManager.insereTan(tan, email, i);
+				//DBManager.insereTan(tan, email, i);
 			}
 			Files.write(Paths.get(path + "/tanList.txt"), String.join("\n", list).getBytes());
 			return list;
