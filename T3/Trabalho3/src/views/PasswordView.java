@@ -72,7 +72,7 @@ public class PasswordView extends JFrame {
 		setResizable(false);
 		setVisible(true);
 		setTitle("Password");
-		DBManager.insereRegistro(3001, (String) updatedUser.get("email"));
+		DBManager.insereRegistro(3001, (String) user.get("email"));
 	
 		
 	}
@@ -123,9 +123,11 @@ public class PasswordView extends JFrame {
 		if (acessosNegados >= 3) {		
 			DBManager.insereRegistro(3007, (String) updatedUser.get("email"));
 			JOptionPane.showMessageDialog(null, "Senha incorreta. Número total de erros atingido. Aguarde até 2 minutos para tentar novamente.");
-			dispose();
 			DBManager.insereRegistro(3002, (String) updatedUser.get("email"));
-			new LoginView();
+			LoginView loginView = new LoginView();
+			loginView.setVisible(true);
+			dispose();
+			setVisible(false);
 		}
 		
 		if (Autentic.verificaVetorSenha(updatedUser, possiblePasswords.toArray(new String[possiblePasswords.size()])) ) {
@@ -149,15 +151,22 @@ public class PasswordView extends JFrame {
 			
 			if (acessosNegados == 1) {
 				DBManager.insereRegistro(3004, (String) updatedUser.get("email"));
+				JOptionPane.showMessageDialog(null, "Senha incorreta");
 			}
 			else if (acessosNegados == 2) {
 				DBManager.insereRegistro(3005, (String) updatedUser.get("email"));
+				JOptionPane.showMessageDialog(null, "Senha incorreta");
 			}
 			else if (acessosNegados == 3) {		
 				DBManager.insereRegistro(3006, (String) updatedUser.get("email"));
+				DBManager.insereRegistro(3007, (String) updatedUser.get("email"));
+				JOptionPane.showMessageDialog(null, "Senha incorreta. Número total de erros atingido. Aguarde até 2 minutos para tentar novamente.");
+				DBManager.insereRegistro(3002, (String) updatedUser.get("email"));
+				LoginView loginView = new LoginView();
+				loginView.setVisible(true);
+				dispose();
+				setVisible(false);
 			}
-			
-			JOptionPane.showMessageDialog(null, "Senha incorreta");
 			
 		}
 	}

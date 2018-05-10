@@ -72,7 +72,7 @@ public class DBManager {
 	}
 	
 	public static void incrementaAcessoErrado(String email) {
-		updateDb(String.format("UPDATE User SET numAcessoErrados = numAcessoErrados + 1, ultimaTentativa = datetime('now') WHERE email = '%s'", email));
+		updateDb(String.format("UPDATE User SET numAcessoErrados = numAcessoErrados + 1, ultimaTentativa = datetime('now', 'localtime') WHERE email = '%s'", email));
 	}
 	
 	public static void zeraAcessoErrado(String email) {

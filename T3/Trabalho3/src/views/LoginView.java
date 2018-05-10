@@ -28,6 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 public class LoginView extends JFrame {
 	
 	private final int FRAME_WIDTH = 300; 
@@ -78,12 +79,18 @@ public class LoginView extends JFrame {
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(new Date());
 						cal.add(Calendar.MINUTE, -2);
-						cal.add(Calendar.HOUR, 2); // fuso horario
+						cal.setTimeZone(TimeZone.getTimeZone("GMT"));//add(Calendar.HOUR, 3); // fuso horario
 						System.out.println(horario);
 						System.out.println(cal.getTime());
 						if (horario.before(cal.getTime())) {
 							DBManager.zeraAcessoErrado((String) user.get("email"));
 							user = Autentic.autenticaEmail((String) user.get("email"));
+							
+							DBManager.insereRegistro(2003, (String) user.get("email"));
+							DBManager.insereRegistro(2002);
+							dispose();
+							PasswordView pass = new PasswordView(user);
+							pass.setVisible(true);
 						}
 						else {
 							DBManager.insereRegistro(2004, (String) user.get("email"));

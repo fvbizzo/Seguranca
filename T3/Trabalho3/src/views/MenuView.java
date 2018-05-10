@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import controllers.Singleton;
+import util.DBManager;
 
 public class MenuView  extends JFrame {
 	
@@ -77,7 +78,7 @@ public class MenuView  extends JFrame {
 		setResizable(false);
 		setVisible(true);
 		setTitle("Menu");
-		DBManager.insereRegistro(f001, (String) Singleton.getInstance().getLoginName());				
+		DBManager.insereRegistro(5001, (String) Singleton.getInstance().getLoginName());				
 	}
 	
 	private void register() {

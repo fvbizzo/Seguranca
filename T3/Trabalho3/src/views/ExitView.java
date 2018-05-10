@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import controllers.Singleton;
+import util.DBManager;
 
 public class ExitView extends JFrame {
 	
