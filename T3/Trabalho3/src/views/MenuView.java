@@ -77,23 +77,29 @@ public class MenuView  extends JFrame {
 		setResizable(false);
 		setVisible(true);
 		setTitle("Menu");
-				
+		DBManager.insereRegistro(f001, (String) Singleton.getInstance().getLoginName());				
 	}
 	
 	private void register() {
 		System.out.println("Cadastrar novo usuário");
+		DBManager.insereRegistro(5002, (String) Singleton.getInstance().getLoginName());
 		new RegisterView();
 		dispose();
 		setVisible(false);
 	}
 	private void alter() {
 		System.out.println("Alterar senha pessoal e certificado digital do usuário");
+		DBManager.insereRegistro(5003, (String) Singleton.getInstance().getLoginName());
+
 	}
 	private void consult() {
 		System.out.println("Consultar pasta de arquivos secretos");
+		DBManager.insereRegistro(5004, (String) Singleton.getInstance().getLoginName());
+
 	}
 	private void exit() {
 		System.out.println("Sair do Sistema");
+		DBManager.insereRegistro(5005, (String) Singleton.getInstance().getLoginName());
 		new ExitView();
 		dispose();
 		setVisible(false);

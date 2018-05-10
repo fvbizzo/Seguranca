@@ -45,7 +45,7 @@ public class RegisterView extends JFrame {
 	public RegisterView() {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 		setSize (1000, 650);
-		
+		DBManager.insereRegistro(6001, (String) Singleton.getInstance().getLoginName());
 		String email = singleton.getLoginName();
 		String name = singleton.getName();
 		String group = singleton.getGroup();

@@ -44,7 +44,7 @@ public class ExitView extends JFrame {
 				back();
 			}
 		});
-		
+		DBManager.insereRegistro(9001, (String) Singleton.getInstance().getLoginName());
 		getContentPane().add(emailLabel);
 		getContentPane().add(groupLabel);
 		getContentPane().add(nameLabel);
@@ -61,10 +61,12 @@ public class ExitView extends JFrame {
 	}
 	
 	public void exit() {
+		DBManager.insereRegistro(9003, (String) Singleton.getInstance().getLoginName());
 		dispose();
 		setVisible(false);
 	}
 	public void back() {
+		DBManager.insereRegistro(9004, (String) Singleton.getInstance().getLoginName());
 		new MenuView();
 		exit();
 	}

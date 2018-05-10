@@ -72,6 +72,7 @@ public class PasswordView extends JFrame {
 		setResizable(false);
 		setVisible(true);
 		setTitle("Password");
+		DBManager.insereRegistro(3001, (String) updatedUser.get("email"));
 	
 		
 	}
@@ -123,6 +124,7 @@ public class PasswordView extends JFrame {
 			DBManager.insereRegistro(3007, (String) updatedUser.get("email"));
 			JOptionPane.showMessageDialog(null, "Senha incorreta. Número total de erros atingido. Aguarde até 2 minutos para tentar novamente.");
 			dispose();
+			DBManager.insereRegistro(3002, (String) updatedUser.get("email"));
 			new LoginView();
 		}
 		

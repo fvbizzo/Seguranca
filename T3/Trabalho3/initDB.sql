@@ -85,7 +85,7 @@ INSERT INTO Mensagem VALUES(8010, 'Arquivo <arq_name> verificado (integridade e 
 INSERT INTO Mensagem VALUES(8011, 'Falha na decriptação do arquivo <arq_name> para <login_name>.');
 INSERT INTO Mensagem VALUES(8012, 'Falha na verificação do arquivo <arq_name> para <login_name>.');
 INSERT INTO Mensagem VALUES(9001, 'Tela de saída apresentada para <login_name>.');
-INSERT INTO Mensagem VALUES(9002, 'Saída não liberadapor falta de one-time password pa <login_name>.');
+INSERT INTO Mensagem VALUES(9002, 'Saída não liberada por falta de one-time password para <login_name>.');
 INSERT INTO Mensagem VALUES(9003, 'Botão sair pressionado por <login_name>.');
 INSERT INTO Mensagem VALUES(9004, 'Botão voltar de sair para o menu principal pressionado por <login_name>.');
 
