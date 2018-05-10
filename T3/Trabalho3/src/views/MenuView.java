@@ -2,6 +2,7 @@ package views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,8 +14,9 @@ import controllers.Singleton;
 public class MenuView  extends JFrame {
 	
 	Singleton singleton = new Singleton().getInstance();
-
+	
 	public MenuView() {
+		
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 		setSize (500, 500);
 		
@@ -64,7 +66,7 @@ public class MenuView  extends JFrame {
 		getContentPane().add(totalAccessLabel);
 		
 		getContentPane().add(mainMenu);
-		if(group.equals("Administrador")) {
+		if(group.equals("administrador")) {
 			getContentPane().add(registerButton);
 		}
 		getContentPane().add(alterButton);

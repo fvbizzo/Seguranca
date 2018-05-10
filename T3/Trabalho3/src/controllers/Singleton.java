@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.HashMap;
+
 public class Singleton {
 	private static Singleton singleton = null;
 	

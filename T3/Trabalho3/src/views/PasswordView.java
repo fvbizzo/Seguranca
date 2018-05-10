@@ -130,7 +130,14 @@ public class PasswordView extends JFrame {
 			DBManager.insereRegistro(3003, (String) updatedUser.get("email"));
 			DBManager.insereRegistro(3002, (String) updatedUser.get("email"));
 			DBManager.zeraAcessoErrado((String)updatedUser.get("email"));
+			DBManager.incrementaTotalAcessos((String)updatedUser.get("email"));
 			dispose();
+			
+			Singleton.getInstance().setName((String) user.get("name"));
+			Singleton.getInstance().setGroup((String) user.get("groupName"));
+			Singleton.getInstance().setLoginName((String) user.get("email"));
+			Singleton.getInstance().setTotalAccess((int) user.get("totalAcessos") + 1);
+			
 			new MenuView();
 		}
 		else {

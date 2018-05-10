@@ -49,16 +49,6 @@ public class LoginView extends JFrame {
 		
 		loginField.setSize(200, 40);
 		
-		
-//		loginButton.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				clicked();
-//				
-//			}
-//		});
-		
 		loginButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -88,7 +78,7 @@ public class LoginView extends JFrame {
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(new Date());
 						cal.add(Calendar.MINUTE, -2);
-						cal.add(Calendar.HOUR, 2);// fuso horario
+						cal.add(Calendar.HOUR, 2); // fuso horario
 						System.out.println(horario);
 						System.out.println(cal.getTime());
 						if (horario.before(cal.getTime())) {

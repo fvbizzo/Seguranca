@@ -192,8 +192,7 @@ public class RegisterView extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO: mudar aqui depois o user
-				DBManager.insereRegistro(6002, (String) "jjj"/*user.get("email")*/);
+				DBManager.insereRegistro(6002, (String) Singleton.getInstance().getLoginName());
 				
 				String resultSenha = new String( senha.getPassword() );
 				String resultConfirmacao = new String(confirma.getPassword());
@@ -211,27 +210,31 @@ public class RegisterView extends JFrame {
 					certDigBytes = Files.readAllBytes(cdPath);
 				} catch (Exception a) {
 					a.printStackTrace();
-					DBManager.insereRegistro(6004, (String) "jjj"/*user.get("email")*/);
+					DBManager.insereRegistro(6004, (String) Singleton.getInstance().getLoginName());
 					return;
 				}
 				
 				X509Certificate cert = Autentic.leCertificadoDigital(certDigBytes);
 				if (cert == null) {
-					DBManager.insereRegistro(6004, (String) "jjj"/*user.get("email")*/);
+					DBManager.insereRegistro(6004, Singleton.getInstance().getLoginName());
 					JOptionPane.showMessageDialog(null, "Certificado digital inválido.");
 					return;
 				}
 				Principal subjectDN = cert.getSubjectDN();
-				String infoString = "Versão: "+ cert.getVersion() +"\n"+ "Validade: " +cert.getNotBefore() +"\n"+ "Tipo: "+cert.getType() +"\n"+ "Assinatura Emissor: "+cert.getIssuerDN() +"\n"+ "Sujeito: "+cert.getSubjectDN()+"\n"+ "Email: "+cert.getSubjectDN();
+								int start = subjectDN.getName().indexOf("=");
+				int end = subjectDN.getName().indexOf(",");
+				String newUserEmail = subjectDN.getName().substring(start + 1, end);
+				
+				String infoString = "Versão: "+ cert.getVersion() +"\n"+ "Validade: " +cert.getNotBefore() +"\n"+ "Tipo: "+cert.getType() +"\n"+ "Assinatura Emissor: "+cert.getIssuerDN() +"\n"+ "Sujeito: "+cert.getSubjectDN()+"\n"+ "Email: "+newUserEmail;
 				int ret = JOptionPane.showConfirmDialog(null, infoString);
 				
 				if (ret != JOptionPane.YES_OPTION) {
 					System.out.println("Cancelou");
-					DBManager.insereRegistro(6007, (String) "jjj"/*user.get("email")*/);
+					DBManager.insereRegistro(6007, Singleton.getInstance().getLoginName());
 					return;
 				}
 				else {
-					DBManager.insereRegistro(6006, (String) "jjj"/*user.get("email")*/);
+					DBManager.insereRegistro(6006, Singleton.getInstance().getLoginName());
 				}
 			
 				
@@ -244,7 +247,7 @@ public class RegisterView extends JFrame {
 						new RegisterView();
 					}
 					else {
-						DBManager.insereRegistro(6003, (String) "jjj"/*user.get("email")*/);
+						DBManager.insereRegistro(6003, Singleton.getInstance().getLoginName());
 						JOptionPane.showMessageDialog(null, "Não foi possível cadastrar novo usuário.");
 					}
 				}
