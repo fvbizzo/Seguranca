@@ -201,10 +201,11 @@ public class Autentic{
 	}
 	
 	private static String geraSalt() {
+		String alphabet = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 		SecureRandom rand = new SecureRandom();
 		StringBuffer salt = new StringBuffer();
 		for (int i = 0; i < 10; i++) {
-			salt.append(new Integer(rand.nextInt(9)).toString());
+			salt.append(alphabet.charAt(rand.nextInt(alphabet.length())));
 		}
 		return salt.toString();
 	}
