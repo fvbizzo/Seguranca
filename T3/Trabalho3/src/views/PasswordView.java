@@ -10,6 +10,7 @@ import java.util.HashMap;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import controllers.Singleton;
@@ -36,6 +37,8 @@ public class PasswordView extends JFrame {
 	
 	String senha;
 	
+	JLabel numErrs;
+	
 	
 	public PasswordView(HashMap user) {
 		
@@ -44,6 +47,8 @@ public class PasswordView extends JFrame {
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		setSize (250, 300);
 		
+		numErrs = new JLabel("numero de accessos errados: " + this.user.get("numAcessoErrados"));
+		getContentPane().add(numErrs);
 		getContentPane().add(b1);
 		getContentPane().add(b2);
 		getContentPane().add(b3);
@@ -134,28 +139,24 @@ public class PasswordView extends JFrame {
 			DBManager.insereRegistro(3003, (String) updatedUser.get("email"));
 			DBManager.insereRegistro(3002, (String) updatedUser.get("email"));
 			DBManager.zeraAcessoErrado((String)updatedUser.get("email"));
-			DBManager.incrementaTotalAcessos((String)updatedUser.get("email"));
 			dispose();
-			
-			Singleton.getInstance().setName((String) user.get("name"));
-			Singleton.getInstance().setGroup((String) user.get("groupName"));
-			Singleton.getInstance().setLoginName((String) user.get("email"));
-			Singleton.getInstance().setTotalAccess((int) user.get("totalAcessos") + 1);
-			
-			new MenuView();
+			updatedUser = Autentic.autenticaEmail((String) user.get("email"));
+			new KeyView(updatedUser);
 		}
 		else {
 			DBManager.incrementaAcessoErrado((String)updatedUser.get("email"));
 			updatedUser = Autentic.autenticaEmail((String) updatedUser.get("email"));
+			this.user = updatedUser;
 			acessosNegados = ((Integer) updatedUser.get("numAcessoErrados"));
+			numErrs.setText("numero de accessos errados: " + this.user.get("numAcessoErrados"));
 			
 			if (acessosNegados == 1) {
 				DBManager.insereRegistro(3004, (String) updatedUser.get("email"));
-				JOptionPane.showMessageDialog(null, "Senha incorreta");
+				JOptionPane.showMessageDialog(null, "Senha incorreta - 1 erro");
 			}
 			else if (acessosNegados == 2) {
 				DBManager.insereRegistro(3005, (String) updatedUser.get("email"));
-				JOptionPane.showMessageDialog(null, "Senha incorreta");
+				JOptionPane.showMessageDialog(null, "Senha incorreta - 2 erros");
 			}
 			else if (acessosNegados == 3) {		
 				DBManager.insereRegistro(3006, (String) updatedUser.get("email"));

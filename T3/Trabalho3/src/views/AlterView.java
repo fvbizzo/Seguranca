@@ -59,7 +59,7 @@ public class AlterView extends JFrame {
 
 		certificateFileChooser.setControlButtonsAreShown(false);
 		
-		JButton registerButton = new JButton("Cadastrar!");		
+		JButton registerButton = new JButton("Fazer alterações!");		
 		JButton backButton = new JButton("Voltar para o Menu Principal");
 		
 		backButton.addActionListener(new ActionListener () {
@@ -264,152 +264,13 @@ public class AlterView extends JFrame {
 		setVisible(true);
 		setTitle("Alterar");
 		
-//		Container c = getContentPane();
-//		
-//		c.add(new Header((String)user.get("email"), (String)user.get("groupName"), (String)user.get("name")));
-//		List<HashMap> tanList = DBManager.retornaTanList((String)user.get("email"));
-//		c.add(new FirstBody("Total de OTPS", tanList.size()));
-//		
-//		
-//		JLabel certificadoDigitalLabel = new JLabel();
-//		certificadoDigitalLabel .setBounds(30, 130, 300, 30);
-//		c.add(certificadoDigitalLabel);
-//		JButton certificadoDigitalButton = new JButton("Escolha o arquivo do Certificado Digital");
-//		certificadoDigitalButton .setBounds(30, 170, 300, 30);
-//		c.add(certificadoDigitalButton);
-//		certificadoDigitalButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				JFileChooser certificadoDigitalchooser = new JFileChooser(); 
-//				certificadoDigitalchooser.setCurrentDirectory(new java.io.File("."));
-//				certificadoDigitalchooser.setDialogTitle("Caminho do Certificado Digital");
-//				certificadoDigitalchooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-//				
-//				if (certificadoDigitalchooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-//					certificadoDigitalLabel.setText(certificadoDigitalchooser.getSelectedFile().getAbsolutePath());
-//				}
-//			    else {
-//			      System.out.println("No Selection ");
-//			    }
-//			}
-//		});
-//		
-//		JLabel tanListLabel = new JLabel();
-//		tanListLabel .setBounds(30, 210, 300, 30);
-//		c.add(tanListLabel);
-//		JButton tanListButton = new JButton("Escolha uma pasta para a TAN List");
-//		c.add(tanListButton);
-//		tanListButton .setBounds(30, 250, 300, 30);
-//		tanListButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				JFileChooser tanListchooser = new JFileChooser(); 
-//				tanListchooser.setCurrentDirectory(new java.io.File("."));
-//				tanListchooser.setDialogTitle("Caminho da TAN List");
-//				tanListchooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//				
-//				if (tanListchooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-//					tanListLabel.setText(tanListchooser.getSelectedFile().getAbsolutePath());
-//				}
-//			    else {
-//			      System.out.println("No Selection ");
-//			    }
-//			}
-//		});
-//		
-//		JLabel senhaLabel = new JLabel("Senha:");
-//		senhaLabel.setBounds(30, 290, 300, 40);
-//		c.add(senhaLabel);
-//		JPasswordField senhaField = new JPasswordField(); 
-//		senhaField.setBounds(30, 330, 300, 40);
-//		c.add(senhaField);
-//		
-//		JLabel senhaConfirmacaoLabel = new JLabel("Confirme a senha:");
-//		senhaConfirmacaoLabel.setBounds(30, 370, 300, 40);
-//		c.add(senhaConfirmacaoLabel);
-//		JPasswordField senhaConfirmacaoField = new JPasswordField(); 
-//		senhaConfirmacaoField.setBounds(30, 410, 300, 40);
-//		c.add(senhaConfirmacaoField);
-//		
-//		JButton alterarButton = new JButton("Alterar e voltar");
-//		alterarButton.setBounds(30, 450, 300, 40);
-//		c.add(alterarButton);
-//		alterarButton.addActionListener(new ActionListener () {
-//			public void actionPerformed (ActionEvent e) {
-//				DBManager.insereRegistro(7007, (String) user.get("email"));
-//				
-//				String errorMsg = "";
-//				String senha = new String( senhaField.getPassword());
-//				if (senha.isEmpty() == false) {
-//					String confirmacao = new String(senhaConfirmacaoField.getPassword());
-//					if (senha.equals(confirmacao)) {
-//						if (Auth.verificaRegrasSenha(senha) == false) {
-//							errorMsg += "Senha não está de acordo com a regra.\n";
-//							DBManager.insereRegistro(7002, (String) user.get("email"));
-//						} 
-//						else {
-//							senha = Auth.geraSenhaProcessada(senha, (String) user.get("salt"));
-//							DBManager.alterarSenha(senha, (String) user.get("email")) ;
-//						}
-//					}
-//					else {
-//						errorMsg += "Senha e confirmação de senha não são iguais.\n";
-//						DBManager.insereRegistro(7002, (String) user.get("email"));
-//					}
-//				}
-//				
-//				String pathCertificado = certificadoDigitalLabel.getText();
-//				if (pathCertificado.isEmpty() == false) {
-//					Path cdPath = Paths.get(pathCertificado);
-//					byte[] certDigBytes = null;
-//					try {
-//						certDigBytes = Files.readAllBytes(cdPath);
-//					} catch (Exception a) {
-//						a.printStackTrace();
-//						DBManager.insereRegistro(7003, (String) user.get("email"));
-//						return;
-//					}
-//					
-//					X509Certificate cert = Auth.leCertificadoDigital(certDigBytes);
-//					if (cert ==  null) {
-//						DBManager.insereRegistro(7003, (String) user.get("email"));
-//						return;
-//					}
-//					String infoString = cert.getVersion() +"\n"+ cert.getNotBefore() +"\n"+ cert.getType() +"\n"+ cert.getIssuerDN() +"\n"+ cert.getSubjectDN();
-//					int ret = JOptionPane.showConfirmDialog(null, infoString);
-//					
-//					if (ret != JOptionPane.YES_OPTION) {
-//						System.out.println("Cancelou");
-//						DBManager.insereRegistro(7006, (String) user.get("email"));
-//						return;
-//					}
-//					else {
-//						DBManager.insereRegistro(7005, (String) user.get("email"));
-//					}
-//					
-//					String certString = Auth.certToString(cert);
-//					DBManager.alterarCertificadoDigital(certString, (String) user.get("email"));
-//				}
-//				
-//				String pathTanList = tanListLabel.getText();
-//				if (pathTanList.isEmpty() == false) {
-//					DBManager.descartaTanList((String) user.get("email"));
-//					List<String> list = Auth.geraTanList(pathTanList, 10,  (String) user.get("email"));
-//					if (list == null) {
-//						DBManager.insereRegistro(7004, (String) user.get("email"));
-//						return;
-//					}
-//				}
-//				
-//				if (errorMsg.isEmpty() == false) {
-//					JOptionPane.showMessageDialog(null, errorMsg);
-//				}
-//				dispose();
-//				new MainView(Auth.autenticaEmail((String) user.get("email")));
-//			}
-//		});
+		DBManager.insereRegistro(7001, (String) Singleton.getInstance().getLoginName());
+
 		
 	}	
 	
 	public void back() {
+		DBManager.insereRegistro(7006, (String) Singleton.getInstance().getLoginName());
 		new MenuView();
 		dispose();
 		setVisible(false);

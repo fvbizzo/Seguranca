@@ -77,6 +77,7 @@ public class RegisterView extends JFrame {
 					path = certificateFileChooser.getSelectedFile().getPath();
 				} catch (Exception exep ) {
 					System.out.println("no file chosen");
+					JOptionPane.showMessageDialog(null, "Nenhum arquivo selecionado");
 					return;
 				}
 					
@@ -272,6 +273,7 @@ public class RegisterView extends JFrame {
 	}
 	
 	public void back() {
+		DBManager.insereRegistro(6007, (String) Singleton.getInstance().getLoginName());
 		new MenuView();
 		dispose();
 		setVisible(false);

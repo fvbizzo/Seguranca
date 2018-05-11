@@ -58,7 +58,7 @@ public class Autentic{
 			byte[] arqAsd = Files.readAllBytes(Paths.get(caminho + "/" + filename + ".asd"));
 			if (assinatura.verify(arqAsd) == false) {
 				System.out.println(filename + " pode ter sido adulterado");
-				DBManager.insereRegistro(8005, (String) user.get("email"));
+				DBManager.insereRegistro(4006, (String) user.get("email"));
 				return null;
 			}
 			else {
@@ -67,7 +67,7 @@ public class Autentic{
 			}
 		} 
 		catch (Exception IOError) {
-			DBManager.insereRegistro(8008, (String) user.get("email"));
+			DBManager.insereRegistro(8004, (String) user.get("email"));
 			return null;
 		}
     }
@@ -85,7 +85,7 @@ public class Autentic{
                 cipher.init(Cipher.DECRYPT_MODE, chave);
             }
             catch (Exception e) {
-                DBManager.insereRegistro(8004, (String) user.get("email"));
+                DBManager.insereRegistro(4005, (String) user.get("email"));
                 return null;
             }
         
@@ -95,7 +95,7 @@ public class Autentic{
                 bytes = Files.readAllBytes(path);
             }
             catch (Exception e) {
-                DBManager.insereRegistro(8003, (String) user.get("email"));
+                DBManager.insereRegistro(4004, (String) user.get("email"));
                 return null;
             }
         
@@ -275,7 +275,6 @@ public class Autentic{
 				return true;
 			}
 			else {
-				DBManager.incrementaNumChavePrivadaErrada((String) user.get("email"));
 				System.out.println("Chave rejeitada!");
 				return false;
 			}

@@ -63,8 +63,9 @@ public class LoginView extends JFrame {
 				}
 				else {
 					Integer acessosNegados = ((Integer) user.get("numAcessoErrados"));
+					Integer acessosNegadosChave = ((Integer) user.get("numChavePrivadaErrada"));
 					System.out.println(acessosNegados);
-					if (acessosNegados >= 3) {	
+					if (acessosNegados >= 3 || acessosNegadosChave >= 3) {	
 						String ultimaTentativa = (String) user.get("ultimaTentativa");
 						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						
@@ -84,6 +85,7 @@ public class LoginView extends JFrame {
 						System.out.println(cal.getTime());
 						if (horario.before(cal.getTime())) {
 							DBManager.zeraAcessoErrado((String) user.get("email"));
+							DBManager.zeraNumChavePrivadaErrada((String) user.get("email"));
 							user = Autentic.autenticaEmail((String) user.get("email"));
 							
 							DBManager.insereRegistro(2003, (String) user.get("email"));
@@ -115,15 +117,7 @@ public class LoginView extends JFrame {
 		setTitle("Login");
 						
 	}
-	
-	private void clicked() {
-		System.out.println("hii");
-		
-		//PasswordView pass = new PasswordView();
-		//this.dispose();
-		//this.setVisible(false);
-		//pass.setVisible(true);
-	}
+
 
 	
 }

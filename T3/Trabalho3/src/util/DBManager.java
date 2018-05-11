@@ -33,7 +33,7 @@ public class DBManager {
 	}
 	
 	public static List getLog() {
-		return selectFromDb("select Registro.id, email, texto from Registro JOIN Mensagem ON Mensagem.id = Registro.messageId order by Registro.id, created;");
+		return selectFromDb("select Registro.id, email, filename, texto from Registro JOIN Mensagem ON Mensagem.id = Registro.messageId order by Registro.id, created;");
 	}
 	
 	public static boolean addUser(String name, String email, String group, String salt, String senha, String certDig) {
@@ -98,7 +98,7 @@ public class DBManager {
 	}
 	
 	public static void incrementaNumChavePrivadaErrada(String email) {
-		updateDb(String.format("UPDATE User SET numChavePrivadaErrada = numChavePrivadaErrada + 1 WHERE email = '%s'", email));
+		updateDb(String.format("UPDATE User SET numChavePrivadaErrada = numChavePrivadaErrada + 1, ultimaTentativa = datetime('now', 'localtime') WHERE email = '%s'", email));
 	}
 	
 	public static void zeraNumChavePrivadaErrada(String email) {
