@@ -23,7 +23,7 @@ public class DBManager {
 	public static Connection connect() {
 		try {
 			Class.forName("org.sqlite.JDBC");
-			return DriverManager.getConnection("jdbc:sqlite:database.db");
+			return DriverManager.getConnection("jdbc:sqlite:dbwork.db");
 		}
 		catch (ClassNotFoundException | SQLException e) {
 			System.err.println(e.getMessage());
@@ -37,9 +37,13 @@ public class DBManager {
 	}
 	
 	public static boolean addUser(String name, String email, String group, String salt, String senha, String certDig) {
+		int grupo = 1;
+		if (group.equals("administrador")) {
+			grupo = 0;
+		}
 		return insertIntoDb(String.format("INSERT INTO User VALUES "
 				+ "('%s', '%s', '%s', '%s', '%s', 1, 0, null, 0, 0, '%s', 0)"
-				, name, email, group, salt, senha, certDig)
+				, name, email, grupo, salt, senha, certDig)
 			);
 	}
 
@@ -60,7 +64,7 @@ public class DBManager {
 	}
 	
 	public static List getUser(String email) throws ClassNotFoundException {
-		return selectFromDb(String.format("SELECT * FROM User WHERE email = '%s'", email));
+		return selectFromDb(String.format("SELECT u.name as name, u.email as email, g.nome as groupName, u.salt as salt, u.passwordDigest as passwordDigest, u. acesso as acesso, u.numAcessoErrados as numAcessoErrados, u.ultimaTentativa as ultimaTentativa, u.totalAcessos as totalAcessos, u.totalConsultas as totalConsultas, u.certificado as certificado, u.numChavePrivadaErrada as numChavePrivadaErrada FROM User as u JOIN Grupo as g ON u.groupId = g.id WHERE email = '%s'", email));
 	}
 	
 	public static boolean alterarCertificadoDigital(String certificado, String email, String newEmail) {

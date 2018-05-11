@@ -49,7 +49,7 @@ public class RegisterView extends JFrame {
 		String email = singleton.getLoginName();
 		String name = singleton.getName();
 		String group = singleton.getGroup();
-		int totalUsers = singleton.getTotalUsers();
+		int totalUsers = DBManager.retornaNumUsuarios();
 		
 		
 		JLabel emailLabel = new JLabel(String.format("Email: %s", email));
