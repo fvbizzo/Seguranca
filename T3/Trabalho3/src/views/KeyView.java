@@ -88,6 +88,7 @@ public class KeyView extends JFrame {
 						Singleton.getInstance().setGroup((String) updatedUser.get("groupName"));
 						Singleton.getInstance().setLoginName((String) updatedUser.get("email"));
 						Singleton.getInstance().setTotalAccess((int) updatedUser.get("totalAcessos"));
+						Singleton.getInstance().setChavePrivada(chavePrivada);
 						
 						new MenuView();
 						dispose();

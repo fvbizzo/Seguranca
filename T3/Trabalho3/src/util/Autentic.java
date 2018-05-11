@@ -240,12 +240,19 @@ public class Autentic{
 					String email = params[2];
 					String grupo = params[3];
 					if (user.get("email").equals(email) || user.get("groupName").equals(grupo)) {
+						DBManager.insereRegistro(8007, (String) user.get("email"), pastaArquivos+"/"+nomeArquivo);
 						String nomeCodigoArquivo = params[0];
 						byte[] conteudoArquivo = Autentic.decriptaArquivo(user, pastaArquivos, nomeCodigoArquivo, chavePrivada);
+						if(conteudoArquivo == null) {
+							DBManager.insereRegistro(8012, (String) user.get("email"), pastaArquivos+"/"+nomeArquivo);
+							return false;
+						}
+						DBManager.insereRegistro(8010, (String) user.get("email"), pastaArquivos+"/"+nomeArquivo);
 						Files.write(Paths.get(pastaArquivos + "/" + nomeSecreto), conteudoArquivo);
 						return true;
 					}
 					else {
+						DBManager.insereRegistro(8008, (String) user.get("email"), pastaArquivos+"/"+nomeArquivo);
 						return false;
 					}
 				}

@@ -98,7 +98,9 @@ public class MenuView  extends JFrame {
 	private void consult() {
 		System.out.println("Consultar pasta de arquivos secretos");
 		DBManager.insereRegistro(5004, (String) Singleton.getInstance().getLoginName());
-
+		new FilesView();
+		dispose();
+		setVisible(false);
 	}
 	private void exit() {
 		System.out.println("Sair do Sistema");

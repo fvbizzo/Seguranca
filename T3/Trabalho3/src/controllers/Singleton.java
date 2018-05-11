@@ -1,5 +1,6 @@
 package controllers;
 
+import java.security.PrivateKey;
 import java.util.HashMap;
 
 public class Singleton {
@@ -8,8 +9,9 @@ public class Singleton {
 	private String loginName = "as";
 	private String group = "aa";
 	private String name = "bb";
-	private int totalAccess = 4;
-	private int totalUsers = 3;
+	private int totalAccess = -1;
+	private int totalUsers = -1;
+	private PrivateKey chavePrivada;
 	
 	public static Singleton getInstance() {
 		if(singleton == null) {
@@ -56,6 +58,14 @@ public class Singleton {
 
 	public void setTotalUsers(int totalUsers) {
 		this.totalUsers = totalUsers;
+	}
+
+	public PrivateKey getChavePrivada() {
+		return chavePrivada;
+	}
+
+	public void setChavePrivada(PrivateKey chavePrivada) {
+		this.chavePrivada = chavePrivada;
 	}
 	
 	
