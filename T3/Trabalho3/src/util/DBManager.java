@@ -63,8 +63,22 @@ public class DBManager {
 		return selectFromDb(String.format("SELECT * FROM User WHERE email = '%s'", email));
 	}
 	
-	public static void alterarCertificadoDigital(String certificado, String email) {
-		updateDb(String.format("UPDATE User SET certificado = '%s' WHERE email = '%s'", certificado, email));
+	public static boolean alterarCertificadoDigital(String certificado, String email, String newEmail) {
+		if (email.equals(newEmail)) {
+			updateDb(String.format("UPDATE User SET certificado = '%s' WHERE email = '%s'", certificado, email));
+			return true;
+		} else {
+			try {
+				if (getUser(newEmail).isEmpty()) {
+					updateDb(String.format("UPDATE User SET certificado = '%s', email = '%s' WHERE email = '%s'", certificado, newEmail, email));
+					return true;
+				} else {
+					return false;
+				}
+			} catch (Exception excp) {
+				return false;
+			}
+		}
 	}
 	
 	public static void alterarSenha(String novaSenha, String email) {

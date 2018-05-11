@@ -91,7 +91,9 @@ public class MenuView  extends JFrame {
 	private void alter() {
 		System.out.println("Alterar senha pessoal e certificado digital do usuário");
 		DBManager.insereRegistro(5003, (String) Singleton.getInstance().getLoginName());
-
+		new AlterView();
+		dispose();
+		setVisible(false);
 	}
 	private void consult() {
 		System.out.println("Consultar pasta de arquivos secretos");
