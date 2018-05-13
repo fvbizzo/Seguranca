@@ -237,6 +237,9 @@ public class Autentic{
 		int len = senha.length();
 		if (len != 6 )
 			return false;
+		if(!Autentic.veriRepet(senha)) {
+			return false;
+		}
 		
 		return true;
     }

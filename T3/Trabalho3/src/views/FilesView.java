@@ -123,18 +123,19 @@ public class FilesView extends JFrame {
 		decripButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DBManager.insereRegistro(8006, (String) user.get("email"), caminhoArq+"/"+indexArq);
 				System.out.println("Inicio de decriptacao de arquivo");
 				int index = table.getSelectedRow();
 				String nomeArquivo = (String) table.getValueAt(index, 1);
+				DBManager.insereRegistro(8006, (String) user.get("email"), caminhoArq+"/"+nomeArquivo);
+
 				if (Autentic.acessarArquivo(user, indexArq, nomeArquivo, chavePrivada, caminhoArq)) {
 					System.out.println("Decriptou arquivo com sucesso!");
-					DBManager.insereRegistro(8009, (String) user.get("email"), caminhoArq+"/"+indexArq);
+					DBManager.insereRegistro(8009, (String) user.get("email"), caminhoArq+"/"+nomeArquivo);
 
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Usuário não possui permissão para ler o arquivo selecionado");
-					DBManager.insereRegistro(8011, (String) user.get("email"), caminhoArq+"/"+indexArq);
+					DBManager.insereRegistro(8011, (String) user.get("email"), caminhoArq+"/"+nomeArquivo);
 
 				}
 			}
