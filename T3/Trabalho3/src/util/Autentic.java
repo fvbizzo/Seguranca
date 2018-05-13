@@ -72,7 +72,7 @@ public class Autentic{
 		}
     }
     public static PrivateKey leChavePrivada(String fraseSecreta, String pathString, HashMap user) {
-        try {			
+        try {	
             SecureRandom rand = SecureRandom.getInstance("SHA1PRNG", "SUN");
             rand.setSeed(fraseSecreta.getBytes());
         
@@ -98,7 +98,7 @@ public class Autentic{
                 DBManager.insereRegistro(4004, (String) user.get("email"));
                 return null;
             }
-        
+
             String chavePrivadaBase64 = new String(cipher.doFinal(bytes), "UTF8");
             chavePrivadaBase64 = chavePrivadaBase64.replace("-----BEGIN PRIVATE KEY-----", "").replace("-----END PRIVATE KEY-----", "").trim();
             byte[] chavePrivadaBytes = DatatypeConverter.parseBase64Binary(chavePrivadaBase64);
@@ -186,7 +186,30 @@ public class Autentic{
 		if (user.get("passwordDigest").equals(senhaDigest))
 			return true;
 		return false;
-    }
+	}
+	
+	public static boolean veriRepet(String senha){
+
+		String part1 = senha.substring(0, 2);
+		String part2 = senha.substring(2, 4);
+		String part3 = senha.substring(4, 6);
+		System.out.println(part1);
+		System.out.println(part2);
+		System.out.println(part3);
+		if(part1.equals(part2)) {
+			return false;
+		} else if(part2.equals(part3))
+		{
+			return false;
+		}
+		else if(part1.equals(part3)) {
+				return false;
+			}
+		else {
+			return true;
+		}
+		
+	}
 	
 	public static String geraSenhaProcessada(String senha, String salt) {
 		MessageDigest sha1 = null;
@@ -215,7 +238,6 @@ public class Autentic{
 		if (len != 6 )
 			return false;
 		
-		//TODO: VERIFICA SILABAS IGUAIS
 		return true;
     }
 
