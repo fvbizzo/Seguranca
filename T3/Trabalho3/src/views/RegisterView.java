@@ -238,6 +238,13 @@ public class RegisterView extends JFrame {
 					DBManager.insereRegistro(6006, Singleton.getInstance().getLoginName());
 				}
 			
+				if(!(Autentic.veriRepet(resultSenha))){
+
+					DBManager.insereRegistro(6003, Singleton.getInstance().getLoginName());
+					JOptionPane.showMessageDialog(null, "Senha não pode conter sequência de repetição.");
+					return;
+
+				}
 				
 				if (resultSenha.equals(resultConfirmacao)) {
 					//TODO: PORBLEMA AQUI NAO TA CADASTRANDO
