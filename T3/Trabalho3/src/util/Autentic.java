@@ -7,6 +7,7 @@ import java.util.Random;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
+import javax.swing.JOptionPane;
 import javax.xml.bind.DatatypeConverter;
 
 import java.io.ByteArrayInputStream;
@@ -57,6 +58,7 @@ public class Autentic{
 			
 			byte[] arqAsd = Files.readAllBytes(Paths.get(caminho + "/" + filename + ".asd"));
 			if (assinatura.verify(arqAsd) == false) {
+				JOptionPane.showMessageDialog(null, "O arquivo não foi decripitado pois pode ter sido adulterado");
 				System.out.println(filename + " pode ter sido adulterado");
 				DBManager.insereRegistro(4006, (String) user.get("email"));
 				return null;

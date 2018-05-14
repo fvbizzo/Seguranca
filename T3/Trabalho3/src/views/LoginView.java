@@ -50,6 +50,8 @@ public class LoginView extends JFrame {
 		
 		loginField.setSize(200, 40);
 		
+		DBManager.insereRegistro(2001);
+		
 		loginButton.addActionListener(new ActionListener() {
 			
 			@Override

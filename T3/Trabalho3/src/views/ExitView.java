@@ -63,6 +63,7 @@ public class ExitView extends JFrame {
 	
 	public void exit() {
 		DBManager.insereRegistro(9003, (String) Singleton.getInstance().getLoginName());
+		DBManager.insereRegistro(1002);
 		dispose();
 		setVisible(false);
 	}

@@ -13,8 +13,8 @@ import views.LoginView;
 
 public class Main {
 	public static void main (String[] args) throws ClassNotFoundException {
-		
 
+		DBManager.insereRegistro(1001);
 		new LoginView();		
 	}
 	

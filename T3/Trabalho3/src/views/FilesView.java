@@ -134,7 +134,7 @@ public class FilesView extends JFrame {
 
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Usuário não possui permissão para ler o arquivo selecionado");
+					JOptionPane.showMessageDialog(null, "Falha na decriptação do arquivo");
 					DBManager.insereRegistro(8011, (String) user.get("email"), caminhoArq+"/"+nomeArquivo);
 
 				}
