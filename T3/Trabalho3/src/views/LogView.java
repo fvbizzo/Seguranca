@@ -14,7 +14,7 @@ public class LogView {
 			String user = (String)log.get("email");
 			String nwstr = ((String)log.get("texto")).replaceAll("<login_name>", user);
 			String newstr = nwstr.replaceAll("<arq_name>", (String)log.get("filename"));
-			System.out.println(String.format("%s) %s", (Integer)log.get("id"), newstr));
+			System.out.println(String.format("%s) %s - %s", (Integer)log.get("id"), newstr, log.get("created")));
 			
 		}
 	}

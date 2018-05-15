@@ -34,6 +34,7 @@ public class Autentic{
 			
 			byte[] arqEnv = Files.readAllBytes(Paths.get(caminho + "/" + filename + ".env"));
 			Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+			
 			cipher.init(Cipher.DECRYPT_MODE, chavePrivada);
 			cipher.update(arqEnv);
 			
@@ -48,9 +49,15 @@ public class Autentic{
 			Key chaveSecreta = keyGen.generateKey();
 			
 			cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
-			cipher.init(Cipher.DECRYPT_MODE, chaveSecreta);
-			byte[] index = cipher.doFinal(arqEnc);
-			
+			byte[] index;
+			try {
+				cipher.init(Cipher.DECRYPT_MODE, chaveSecreta);
+				index = cipher.doFinal(arqEnc);
+			} catch(Exception ey) {
+				System.out.println("cypher");
+				JOptionPane.showMessageDialog(null, "O arquivo não foi decripitado: erro na cypher");
+				return null;
+			}
 			X509Certificate cert = Autentic.leCertificadoDigital(((String) user.get("certificado")).getBytes());
 			Signature assinatura = Signature.getInstance("MD5withRSA");
 			assinatura.initVerify(cert.getPublicKey());
@@ -266,6 +273,8 @@ public class Autentic{
 				if (nomeSecreto.equals(nomeArquivo)) {
 					String email = params[2];
 					String grupo = params[3];
+					System.out.println(grupo);
+					System.out.println(user.get("groupName"));
 					if (user.get("email").equals(email) || user.get("groupName").equals(grupo)) {
 						DBManager.insereRegistro(8007, (String) user.get("email"), pastaArquivos+"/"+nomeArquivo);
 						String nomeCodigoArquivo = params[0];

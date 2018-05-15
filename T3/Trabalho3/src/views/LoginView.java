@@ -82,7 +82,7 @@ public class LoginView extends JFrame {
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(new Date());
 						cal.add(Calendar.MINUTE, -2);
-						cal.setTimeZone(TimeZone.getTimeZone("GMT"));//add(Calendar.HOUR, 3); // fuso horario
+						cal.setTimeZone(TimeZone.getTimeZone("GMT")); // fuso horario
 						System.out.println(horario);
 						System.out.println(cal.getTime());
 						if (horario.before(cal.getTime())) {

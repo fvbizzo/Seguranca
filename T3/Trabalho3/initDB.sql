@@ -39,7 +39,7 @@ CREATE TABLE Grupo (
 );
 
 INSERT INTO Grupo VALUES(0, 'administrador');
-INSERT INTO Grupo VALUES(1, 'usuário');
+INSERT INTO Grupo VALUES(1, 'usuario');
 
 INSERT INTO User VALUES('Administrador', 'admin@inf1416.puc-rio.br', 0, '1432067480', '263adb10e92d7a4eec94d4a632623fec7b926f3d', 1,0,null,1,0,'-----BEGIN CERTIFICATE-----
 MIID5zCCAs+gAwIBAgIBAzANBgkqhkiG9w0BAQsFADB6MQswCQYDVQQGEwJCUjEM
@@ -86,6 +86,9 @@ INSERT INTO Mensagem VALUES(4004, 'Chave privada verificada negativamente para <
 INSERT INTO Mensagem VALUES(4005, 'Chave privada verificada negativamente para <login_name> (frase secreta inválida).');
 INSERT INTO Mensagem VALUES(4006, 'Chave privada verificada negativamente para <login_name> (assinatura digital inválida).');
 INSERT INTO Mensagem VALUES(4007, 'Acesso do usuario <login_name> bloqueado pela autenticação etapa 3.');
+INSERT INTO Mensagem VALUES(4008, 'Primeiro erro da chave privada contabilizado para <login_name>.');
+INSERT INTO Mensagem VALUES(4009, 'Segundo erro da chave privada contabilizado para <login_name>.');
+INSERT INTO Mensagem VALUES(4010, 'Terceiro erro da chave privada contabilizado para <login_name>.');
 INSERT INTO Mensagem VALUES(5001, 'Tela principal apresentada para <login_name>.');
 INSERT INTO Mensagem VALUES(5002, 'Opção 1 do menu principal selecionada por <login_name>.');
 INSERT INTO Mensagem VALUES(5003, 'Opção 2 do menu principal selecionada por <login_name>.');

@@ -33,7 +33,7 @@ public class DBManager {
 	}
 	
 	public static List getLog() {
-		return selectFromDb("select Registro.id, email, filename, texto from Registro JOIN Mensagem ON Mensagem.id = Registro.messageId order by Registro.id, created;");
+		return selectFromDb("select Registro.id, created, email, filename, texto from Registro JOIN Mensagem ON Mensagem.id = Registro.messageId order by Registro.id, created;");
 	}
 	
 	public static boolean addUser(String name, String email, String group, String salt, String senha, String certDig) {

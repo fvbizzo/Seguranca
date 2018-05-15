@@ -107,7 +107,14 @@ public class KeyView extends JFrame {
 				Integer acessosNegados = ((Integer) updatedUser.get("numChavePrivadaErrada"));
 				numErrs.setText("numero de accessos errados: " + updatedUser.get("numChavePrivadaErrada"));
 				
+				if(acessosNegados == 1) {
+					DBManager.insereRegistro(4008, (String) user.get("email"));
+				}
+				if(acessosNegados == 2) {
+					DBManager.insereRegistro(4009, (String) user.get("email"));
+				}
 				if(acessosNegados >= 3) {
+					DBManager.insereRegistro(4010, (String) user.get("email"));
 					DBManager.insereRegistro(4007, (String) user.get("email"));
 					DBManager.insereRegistro(4002, (String) user.get("email"));
 					JOptionPane.showMessageDialog(null, "Senha incorreta. Número total de erros atingido. Aguarde até 2 minutos para tentar novamente.");
